@@ -75,7 +75,7 @@ from photos.models import Image
 
 friends_photos_kwargs = {
     "template_name": "photos/friends_photos.html",
-    "friends_objects_function": lambda users: Image.objects.filter(member__in=users),
+    "friends_objects_function": lambda users: Image.objects.filter(is_public=True, member__in=users),
 }
 
 from blog.models import Post
@@ -111,5 +111,5 @@ urlpatterns += patterns('',
 
 if settings.SERVE_MEDIA:
     urlpatterns += patterns('', 
-        (r'^site_media/(?P<path>.*)$', 'staticfiles.views.serve')
+        (r'^site_media/', include('staticfiles.urls')),
     )
